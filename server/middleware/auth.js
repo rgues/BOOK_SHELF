@@ -1,8 +1,8 @@
 const { User } = require('./../models/user');
 
 let auth =  (req,res,next) => {
-    
-    let token = req.cookies.authToken || 'eyJhbGciOiJIUzI1NiJ9.NjRlMGJjNWJkM2E5YmM4MTBiZTFmODBj.9XhlvmyWigue4wQa3CAYvGpnhnKW4zlueHLPCKANNec';   
+  
+    let token = req.cookies.authToken || 'eyJhbGciOiJIUzI1NiJ9.NjRlODg1ZDIxN2I4MmQwNzQ4ZjMxM2Ez.bi-q3QXQMOrznAxblYNcZcLTb7SuaBiqHpZoUJUpNhs';   
     User.findByToken(token,(err,user) => {
         if(err) throw err;
         if(!user) return res.json({

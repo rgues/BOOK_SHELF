@@ -6,14 +6,28 @@ const config =  require('./config/config').get(process.env.NODE_ENV);
 const app = express();
 const { auth } = require('./middleware/auth');
 
+const cors = require('cors');
+
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DATABASE);
 
 const { User } = require('./models/user');
 const { Book } = require('./models/book');
 
+
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+app.use(cors({
+   allowedHeaders: [
+     'Origin', 'X-Requested-With',
+     'Content-Type', 'Accept',
+     'X-Access-Token', 'Authorization',
+   ],
+   methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+   preflightContinue: true,
+   origin: '*',
+ })); 
 
 // GET //
 app.get('/api/auth',auth,(req,res) => {
@@ -156,6 +170,7 @@ app.post('/api/login',async (req,res) => {
          });
 
       } catch (err) {
+         console.log(err);
          res.status(400).send(err);
       }
 });
