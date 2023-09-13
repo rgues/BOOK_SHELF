@@ -14,10 +14,10 @@ const Login = (props) => {
     let user = props.user;
 
     useEffect(() => {
-        if (props.user.login.isAuth) {
+        if (props.user && props.user.login && props.user.login.isAuth) {
             nagivate('/user');
         }
-    },[])
+    })
 
     // Sent login data
     const submitForm = (e) => {

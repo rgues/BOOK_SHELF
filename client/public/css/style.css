@@ -59,6 +59,10 @@ header .navItem span {
     margin-right:10px;
 }
 
+header .navItem svg {
+    margin-right: 4px;
+ }
+
 .book_item {
     border-bottom: 4px solid #f1f1f1;
     box-sizing: border-box;

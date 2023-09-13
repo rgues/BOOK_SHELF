@@ -23,7 +23,7 @@ const BooksView = (props) => {
                     <h2> {books.book.name} </h2>
                     <h5> {books.book.author}</h5>
                     <div className='br_reviewer'>
-                        <span>Review by:</span> {books.reviewer.name} {books.reviewer.lastname}
+                        <span>Review by:</span> {books.reviewer ? books.reviewer.name : null} {books.reviewer ? books.reviewer.lastname:null}
                     </div>
                 </div>
                 <div className='br_review'>
@@ -56,7 +56,7 @@ const BooksView = (props) => {
     );
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         books: state.books
     }

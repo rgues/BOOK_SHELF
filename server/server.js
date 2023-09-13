@@ -132,6 +132,27 @@ app.post('/api/book',async (req,res) => {
     }
 });
 
+// UPDATE //
+app.post('/api/book/update',async (req,res) => {
+   try {
+      const book = await Book.findByIdAndUpdate(req.body._id,req.body,{new:true}).exec();
+      res.status(200).json({success:true, doc:book});
+   } catch (err) {
+      res.status(400).send(err);
+   }
+});
+
+// DELETE //
+app.delete('/api/book/delete',async (req,res) => {
+   let id = req.query.id;
+   try {
+      await Book.findByIdAndRemove(id).exec();
+      res.status(200).send(true);
+   } catch (err) {
+      res.status(400).json(err);
+   }
+});
+
 
 app.post('/api/register',async (req,res) => {
 
@@ -143,7 +164,9 @@ app.post('/api/register',async (req,res) => {
          user: user
       });
    } catch (err) {
-      res.status(400).send(err);
+      res.json({
+         success:false
+      });
    }
 
 });
@@ -176,27 +199,6 @@ app.post('/api/login',async (req,res) => {
 });
 
 
-
-// UPDATE //
-app.post('/api/book/update',async (req,res) => {
-   try {
-      const book = await Book.findByIdAndUpdate(req.body._id,req.body,{new:true}).exec();
-      res.status(200).json({success:true, doc:book});
-   } catch (err) {
-      res.status(400).send(err);
-   }
-});
-
-// DELETE //
-app.delete('/api/book/delete',async (req,res) => {
-   let id = req.query.id;
-   try {
-      await Book.findByIdAndRemove(id).exec();
-      res.status(200).send(true);
-   } catch (err) {
-      res.status(400).json(err);
-   }
-});
 
 const port = process.env.PORT || 3001;
 app.listen(port,() => {

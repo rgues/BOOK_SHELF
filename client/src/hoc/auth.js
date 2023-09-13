@@ -13,7 +13,7 @@ const Auth = (ComposedClass, reload) => {
         useEffect(() => {
             props.dispatch(auth());
           
-            if (props.user.login && !props.user.login.isAuth) {
+            if (props.user && (!props.user.login || !props.user.login.isAuth)) {
                 if (reload) {
                     navigate('/login');
                 }
@@ -22,7 +22,10 @@ const Auth = (ComposedClass, reload) => {
                     navigate('/user');
                 }
             }
-            return setLoading(false);
+            return () => {
+                setLoading(false);
+            }
+
         }, []);
 
         return (
