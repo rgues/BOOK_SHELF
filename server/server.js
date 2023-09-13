@@ -14,9 +14,11 @@ mongoose.connect(config.DATABASE);
 const { User } = require('./models/user');
 const { Book } = require('./models/book');
 
-
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+// Run this code in production
+app.use(express.static('client/build'));
 
 app.use(cors({
    allowedHeaders: [
@@ -199,8 +201,15 @@ app.post('/api/login',async (req,res) => {
 });
 
 
+if(process.env.NODE_ENV === 'production') {
+      const path = require('path');
+      app.get('/*',(req,res) => {
+            res.sendfile(path.resolve(__dirname,'../client','build','index.html'));
+      });
+}
 
-const port = process.env.PORT || 3001;
+
+const port = process.env.PORT || 3000;
 app.listen(port,() => {
     console.log(`Server is running on port ${port}`);
 });
